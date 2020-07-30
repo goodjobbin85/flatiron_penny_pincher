@@ -6,7 +6,4 @@ class Transaction {
   }
 
   //render transaction instance method that renders transaction
-  renderTransaction() {
-
-  }
 }
