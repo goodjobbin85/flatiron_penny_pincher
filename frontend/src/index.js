@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  transactionForm();
   getUsers();
   getTransactions();
 })
@@ -17,6 +18,7 @@ function getUsers() {
   })
 }
 
+//render all transactions
 function getTransactions() {
   fetch(`${BASE_URL}/transactions`)
   .then(resp => resp.json())
@@ -26,4 +28,20 @@ function getTransactions() {
       trans.renderTransaction();
     }
   })
+}
+
+//new transaction form
+function transactionForm() {
+  let form = document.getElementById("transactionForm");
+
+  form.innerHTML +=
+  `<form>
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount"><br>
+    <label for="t_type">Type:</label>
+    <input type="text" id="t_type" name="t_type"><br>
+    <label for="store">Store:</label>
+    <input type="text" id="store" name="store"><br>
+    <input type="submit" id="submit" value="Create Transaction">
+  </form>`
 }
