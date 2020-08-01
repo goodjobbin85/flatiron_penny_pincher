@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   transactionForm();
-  getUsers();
+  //getUsers();
   getTransactions();
+  transactionFormSubmission();
 })
 
 const BASE_URL = "http://localhost:3000"
@@ -30,9 +31,10 @@ function getTransactions() {
   })
 }
 
-//new transaction form
+//render new transaction form
 function transactionForm() {
   let form = document.getElementById("transactionForm");
+
 
   form.innerHTML +=
   `<form>
@@ -44,4 +46,37 @@ function transactionForm() {
     <input type="text" id="store" name="store"><br>
     <input type="submit" id="submit" value="Create Transaction">
   </form>`
+
+  form.addEventListener('submit', transactionFormSubmission);
+}
+
+function transactionFormSubmission() {
+  event.preventDefault();
+
+  let amount = document.getElementById("amount").value;
+  let t_type = document.getElementById("t_type").value;
+  let store = document.getElementById("store").value;
+
+  let transaction = {
+    amount: amount,
+    transaction_type: t_type,
+    institution: store
+  }
+
+  fetch(`${BASE_URL}/transactions`, {
+    method: "POST",
+    headers: {
+      "Acccept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(transaction)
+  })
+  .then(resp => resp.json())
+  .then(transaction => {
+    let trans = new Transaction(transaction.amount, transaction.transaction_type, transaction.institution)
+    trans.renderTransaction();
+  })
+  amount = "";
+  t_type = "";
+  store = "";
 }
