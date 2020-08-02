@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   transactionForm();
   //getUsers();
   getTransactions();
-  transactionFormSubmission();
 })
 
 const BASE_URL = "http://localhost:3000"
@@ -25,7 +24,7 @@ function getTransactions() {
   .then(resp => resp.json())
   .then(transactions => {
     for (const transaction of transactions) {
-      let trans = new Transaction(transaction.amount, transaction.transaction_type, transaction.institution)
+      let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
       trans.renderTransaction();
     }
   })
@@ -37,7 +36,7 @@ function transactionForm() {
 
 
   form.innerHTML +=
-  `<form>
+  `<form id="transForm">
     <label for="amount">Amount:</label>
     <input type="text" id="amount" name="amount"><br>
     <label for="t_type">Type:</label>
@@ -52,12 +51,13 @@ function transactionForm() {
 
 function transactionFormSubmission() {
   event.preventDefault();
-
+  let transForm = document.getElementById("transForm");
   let amount = document.getElementById("amount").value;
   let t_type = document.getElementById("t_type").value;
   let store = document.getElementById("store").value;
 
   let transaction = {
+    id: this.id,
     amount: amount,
     transaction_type: t_type,
     institution: store
@@ -73,10 +73,18 @@ function transactionFormSubmission() {
   })
   .then(resp => resp.json())
   .then(transaction => {
-    let trans = new Transaction(transaction.amount, transaction.transaction_type, transaction.institution)
+    let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
     trans.renderTransaction();
   })
-  amount = "";
-  t_type = "";
-  store = "";
+  transForm.reset;
+}
+
+function deleteTransaction() {
+  let transId = parseInt(event.target.dataset.id)
+
+    fetch(`${BASE_URL}/transactions/${transId}`, {
+        method: 'DELETE'
+    })
+
+    this.location.reload()
 }

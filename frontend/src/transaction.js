@@ -1,5 +1,6 @@
 class Transaction {
-  constructor(amount, transaction_type, institution) {
+  constructor(id, amount, transaction_type, institution) {
+    this.id = id;
     this.amount = amount;
     this.transaction_type = transaction_type;
     this.institution = institution
@@ -8,20 +9,15 @@ class Transaction {
   //render transaction instance method that renders transaction
   renderTransaction() {
     let table = document.getElementById("transactionsTable");
-    let row = document.createElement("tr");
-
-    let td = document.createElement("td");
-    td.innerText = this.amount;
-
-    let td2 = document.createElement("td");
-    td2.innerText = this.transaction_type;
-
-    let td3 = document.createElement("td");
-    td3.innerText = this.institution;
-
-    row.appendChild(td);
-    row.appendChild(td2);
-    row.appendChild(td3);
-    table.appendChild(row);
+    table.innerHTML +=
+    `
+      <tr>
+        <td>${this.id}</td>
+        <td>${this.amount}</td>
+        <td>${this.transaction_type}</td>
+        <td>${this.institution}</td>
+        <td><button class="delete-button" data-id=${this.id} onclick="deleteTransaction()">Delete</button></td>
+      </tr>
+    `
   }
 }
