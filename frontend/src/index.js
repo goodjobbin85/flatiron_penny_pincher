@@ -50,14 +50,16 @@ function transactionForm() {
 }
 
 function transactionFormSubmission() {
+
   event.preventDefault();
+
+
   let transForm = document.getElementById("transForm");
   let amount = document.getElementById("amount").value;
   let t_type = document.getElementById("t_type").value;
   let store = document.getElementById("store").value;
 
   let transaction = {
-    id: this.id,
     amount: amount,
     transaction_type: t_type,
     institution: store
@@ -76,15 +78,15 @@ function transactionFormSubmission() {
     let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
     trans.renderTransaction();
   })
-  transForm.reset;
+  transForm.reset();
 }
 
 function deleteTransaction() {
+  
   let transId = parseInt(event.target.dataset.id)
 
     fetch(`${BASE_URL}/transactions/${transId}`, {
         method: 'DELETE'
     })
-
-    this.location.reload()
+    event.target.parentElement.parentElement.remove();
 }
