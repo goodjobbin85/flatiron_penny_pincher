@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  budgetForm();
   transactionForm();
   //getUsers();
   getTransactions();
@@ -28,6 +29,47 @@ function getTransactions() {
       trans.renderTransaction();
     }
   })
+}
+//render new budget form
+
+function budgetForm() {
+  let form = document.getElementById("budgetForm");
+  form.innerHTML +=
+  `
+    <form id="bForm">
+      <label for="balance">Balance:</label>
+      <input type="text" id="balance" name="balance">
+      <input type="submit" id="submit">
+    </form>
+  `
+
+  form.addEventListener("submit", budgetFormSubmission);
+}
+
+function budgetFormSubmission() {
+  event.preventDefault();
+
+  let form = document.getElementById("bForm");
+  let balance = document.getElementById("balance").value;
+
+  let budget = {
+    balance: balance
+  }
+
+  fetch(`${BASE_URL}/budgets`, {
+    method: "POST",
+    headers: {
+      "Acccept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(budget)
+  })
+  .then(resp => resp.json())
+  .then(budget => {
+    let budg = new Budget(budget.id, budget.balance);
+    budg.renderBudget();
+  })
+  form.reset();
 }
 
 //render new transaction form
@@ -82,7 +124,7 @@ function transactionFormSubmission() {
 }
 
 function deleteTransaction() {
-  
+
   let transId = parseInt(event.target.dataset.id)
 
     fetch(`${BASE_URL}/transactions/${transId}`, {
