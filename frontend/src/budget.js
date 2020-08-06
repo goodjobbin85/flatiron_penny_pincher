@@ -6,6 +6,6 @@ class Budget {
 
   renderBudget() {
     let budgetH2 = document.getElementById("budgetAmount");
-    budgetH2.innerHTML = `$${this.balance}`;
+    budgetH2.innerHTML = `${this.balance}`;
   }
 }
