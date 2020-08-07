@@ -123,7 +123,7 @@ function transactionFormSubmission() {
     let balance = parseInt(document.getElementById("budgetAmount").innerText);
     console.log(balance);
     balance = balance - trans.amount;
-    console.log(balance);
+    console.log(balance)
     document.getElementById("budgetAmount").innerText = balance;
   })
   transForm.reset();
@@ -137,4 +137,8 @@ function deleteTransaction() {
         method: 'DELETE'
     })
     event.target.parentElement.parentElement.remove();
+    let balance = parseInt(document.getElementById("budgetAmount").innerText)
+    let transaction = parseInt(event.target.parentElement.parentElement.children[1].innerText);
+    balance = balance + transaction;
+    document.getElementById("budgetAmount").innerText = balance;
 }
