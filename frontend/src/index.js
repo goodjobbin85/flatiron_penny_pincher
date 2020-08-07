@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   budgetForm();
   transactionForm();
   //getUsers();
+  depositForm();
   getTransactions();
 })
 
@@ -91,6 +92,20 @@ function transactionForm() {
   form.addEventListener('submit', transactionFormSubmission);
 }
 
+function depositForm() {
+  let form = document.getElementById("depositForm");
+
+
+  form.innerHTML +=
+  `<form id="depForm">
+    <label for="amount">Amount:</label>
+    <input type="text" id="depAmount" name="depAmount"><br>
+    <input type="submit" id="submit" value="Create Transaction">
+  </form>`
+
+  form.addEventListener('submit', depositFormSubmission);
+}
+
 function transactionFormSubmission() {
 
   event.preventDefault();
@@ -127,6 +142,10 @@ function transactionFormSubmission() {
     document.getElementById("budgetAmount").innerText = balance;
   })
   transForm.reset();
+}
+
+function depositFormSubmission() {
+
 }
 
 function deleteTransaction() {
