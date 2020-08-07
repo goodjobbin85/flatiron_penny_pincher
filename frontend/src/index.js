@@ -102,10 +102,6 @@ function depositForm() {
   `<form id="depForm">
     <label for="depAmount">Amount:</label>
     <input type="text" id="depAmount" name="depAmount"><br>
-    <label for="t_type">Type:</label>
-    <input type="text" id="dep_t_type" name="dep_t_type"><br>
-    <label for="store">Store:</label>
-    <input type="text" id="dep_store" name="dep_store"><br>
     <input type="submit" id="submit" value="Create Transaction">
   </form>`
 
@@ -152,13 +148,13 @@ function depositFormSubmission() {
 
   let depForm = document.getElementById("depForm");
   let deposit = document.getElementById("depAmount").value;
-  let dep_t_type = document.getElementById("dep_t_type").value;
-  let dep_store = document.getElementById("dep_store").value;
+  //let dep_t_type = document.getElementById("dep_t_type").value;
+  //let dep_store = document.getElementById("dep_store").value;
 
   let transaction = {
     amount: deposit,
-    transaction_type: dep_t_type,
-    institution: dep_store
+    //transaction_type: dep_t_type,
+    //institution: dep_store
   }
 
   fetch(`${BASE_URL}/transactions`, {
