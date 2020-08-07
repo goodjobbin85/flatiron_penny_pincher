@@ -5,7 +5,9 @@ class Budget {
   }
 
   renderBudget() {
+    
     let budgetH2 = document.getElementById("budgetAmount");
+    budgetH2.setAttribute(`data-id`, this.id)
     budgetH2.innerHTML = `${this.balance}`;
   }
 }

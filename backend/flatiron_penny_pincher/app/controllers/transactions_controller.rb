@@ -15,6 +15,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions
   def create
+    
     @transaction = Transaction.new(transaction_params)
 
     if @transaction.save

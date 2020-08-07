@@ -7,8 +7,10 @@ class Transaction {
   }
 
   //render transaction instance method that renders transaction
-  renderTransaction() {
+  renderTransaction(budgetId) {
+    //let transDiv = document.querySelector(`div#transaction-div[data-id="${budgetId}"]`)
     let table = document.getElementById("transactionsTable");
+
     table.innerHTML +=
     `
       <tr>
