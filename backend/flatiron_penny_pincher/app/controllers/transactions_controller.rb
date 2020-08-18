@@ -15,7 +15,7 @@ class TransactionsController < ApplicationController
 
   # POST /transactions
   def create
-    
+
     @transaction = Transaction.new(transaction_params)
 
     if @transaction.save
@@ -47,6 +47,6 @@ class TransactionsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def transaction_params
-      params.require(:transaction).permit(:amount, :transaction_type, :institution)
+      params.require(:transaction).permit(:amount, :transaction_type, :institution, :budget_id)
     end
 end

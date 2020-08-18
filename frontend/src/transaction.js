@@ -1,9 +1,10 @@
 class Transaction {
-  constructor(id, amount, transaction_type, institution) {
+  constructor(id, amount, transaction_type, institution, budget_id) {
     this.id = id;
     this.amount = amount;
     this.transaction_type = transaction_type;
-    this.institution = institution
+    this.institution = institution;
+    this.budget_id = budget_id;
   }
 
   //render transaction instance method that renders transaction

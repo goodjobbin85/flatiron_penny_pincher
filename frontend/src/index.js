@@ -26,7 +26,7 @@ function getTransactions() {
   .then(resp => resp.json())
   .then(transactions => {
     for (const transaction of transactions) {
-      let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
+      let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution, transaction.budget_id)
       trans.renderTransaction();
     }
   })
@@ -71,8 +71,10 @@ function budgetFormSubmission() {
     budg.renderBudget();
     let div = document.getElementById("transaction-div");
     div.setAttribute("data-id", budg.id)
+
   })
   form.reset();
+
 }
 
 //render new transaction form
@@ -121,7 +123,7 @@ function transactionFormSubmission() {
     amount: amount,
     transaction_type: t_type,
     institution: store,
-    budget_id: document.querySelector("h2#budgetAmount").dataset.id
+    budget_id: parseInt(document.querySelector("h2#budgetAmount").dataset.id)
   }
 
   fetch(`${BASE_URL}/transactions`, {
@@ -134,8 +136,9 @@ function transactionFormSubmission() {
   })
   .then(resp => resp.json())
   .then(transaction => {
-    let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
-    trans.renderTransaction(transaction.budget_id);
+    let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution, transaction.budget_id)
+
+    trans.renderTransaction(transaction);
     let balance = parseInt(document.getElementById("budgetAmount").innerText);
     balance = balance - trans.amount;
     document.getElementById("budgetAmount").innerText = balance;
