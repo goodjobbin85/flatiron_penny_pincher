@@ -172,11 +172,8 @@ function depositFormSubmission() {
   .then(transaction => {
     let trans = new Transaction(transaction.id, transaction.amount, transaction.transaction_type, transaction.institution)
     trans.renderTransaction();
-    console.log(trans.amount + 12);
     let balance = parseInt(document.getElementById("budgetAmount").innerText);
-    console.log(balance + 12);
     balance = balance + parseInt(trans.amount);
-    console.log(balance)
     document.getElementById("budgetAmount").innerText = balance;
   })
   transForm.reset();
